@@ -207,11 +207,17 @@
                     </tr>
                 </tbody>
             </table>
+            @if($product->videoLink != null)
             <div class="iframe">
                 <iframe class="responsive-iframe"
                         src="{{ $product->videoLink }}">
                 </iframe>
             </div>
+            @else
+                <p class="">
+                    No Video Upload
+                </p>
+            @endif
             <!--  Warranty -->
             <table class="table table-hover">
                 <p class="bg-secondary text-white p-3 rounded">

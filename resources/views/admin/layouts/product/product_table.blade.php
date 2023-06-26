@@ -46,7 +46,7 @@
                 <th>colors</th>
                 <th>manufacturing_warranty</th>
 
-                <th>subCategory_id</th>
+                <th>Category_id</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -84,8 +84,7 @@
                 <td>{{ $product->colors }}</td>
                 <td>{{ $product->manufacturing_warranty }}</td>
 
-                <td>{{ $product->subCategory_id }}</td>
-                <td>{{ $product->category_id }}</td>
+                <td>{{ $product->category->category_name }}</td>
 
                 <td>
                     <a href="{{ route('admin.view.product',$product->id) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>

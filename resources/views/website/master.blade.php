@@ -22,7 +22,7 @@
     <!-- Style Sheet -->
     <link rel="stylesheet" href="{{ asset('website/css/style.css') }}">
 
-    <title>Zoom Computer Bd</title>
+    <title>Zoom Laptop Bd</title>
 </head>
 
 <body>
