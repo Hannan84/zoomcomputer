@@ -35,7 +35,7 @@
     <section class="product-slider">
         <div class="slider">
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             @foreach ($offers_image as $key => $offer)
@@ -68,11 +68,11 @@
                     </div>
                 </div>
                 <!-- compare product -->
-                <div class="col-lg-4 mt-4">
+                <!-- <div class="col-lg-4 mt-4">
                     <div class="compare-product text-center">
                         <h3 class="pt-1">Compare Product</h3>
                         <p>Choose two product to compare</p>
-                        <form action="{{ route('user.compare.product') }}" class="form-inline my-2 my-lg-0">
+                        <form action="" class="form-inline my-2 my-lg-0">
                             <input type="search" name="search_c1" value="" placeholder="Search"
                                 class="form-control m-2 w-100" aria-label="Search">
                             <input type="search" name="search_c2" value="" placeholder="Search"
@@ -81,7 +81,7 @@
                             <input type="submit" class="bg-secondary p-2 border text-white w-100">
                         </form>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>

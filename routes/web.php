@@ -64,7 +64,7 @@ Route::group(['prefix' => 'website'], function () {
 
     // product details
     Route::get('/product/details/{id}', [HomeController::class, 'productDetails'])->name('website.product.details');
-    Route::get('/user/compare/product', [HomeController::class, 'compareProduct'])->name('user.compare.product');
+    // Route::get('/user/compare/product', [HomeController::class, 'compareProduct'])->name('user.compare.product');
 
     Route::group(['middleware' => 'check_customer'], function () {
         // add to cart

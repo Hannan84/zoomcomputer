@@ -167,6 +167,7 @@ class HomeController extends Controller
         return view('website.layouts.product_details', compact('product', 'stocks'));
     }
 
+    /***
     public function compareProduct(Request $request)
     {
         $search_c1 = $request['search_c1'] ?? "";
@@ -184,6 +185,7 @@ class HomeController extends Controller
             return redirect()->route('website.home')->with('error', 'Search is empty');
         }
     }
+    ***/
 
     public function refundPolicy()
     {
