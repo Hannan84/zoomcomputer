@@ -15,18 +15,34 @@
         <div class="container">
             <div class="row">
                 @foreach ($products as $product)
-                    <div class="col-6 col-lg-3 d-flex align-items-stretch">
-                        <div class="card">
-                            <a href="{{ route('website.product.details', $product->id) }}" style="color:black;">
-                                <div class="card-body font-weight-bold">
-                                    <img src="{{ asset('uploads/products/' . $product->product_image) }}" alt=""
-                                        class="img-fluid"><br><br>
-                                    <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                        {{ $product->model }}</p>
-                                    <span class="text-success">Price: {{ $product->regular_price }}</span>
-
+                    <div class="column d-flex align-items-stretch justify-content-center">
+                        <div class="box">
+                            <a href="{{ route('website.product.details', $product->id) }}">
+                                <div class="img-box">
+                                    <img src="{{ asset('uploads/products/' . $product->product_image) }}"
+                                        class="img-fluid">
                                 </div>
                             </a>
+                            <div class="detail-box">
+                                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                    {{ $product->model }}
+                                </h5>
+                                <li>
+                                    Processor: {{ $product->processor }}
+                                </li>
+                                <li>
+                                    RAM: {{ $product->memory }}
+                                </li>
+                                <li>
+                                    Display: {{ $product->display }}
+                                </li>
+                                <h6 style="text-align:center; color:#d11d1d">
+                                    {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
+                                </h6>
+                                <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-secondary">
+                                    Add To Cart
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach

@@ -1,7 +1,7 @@
 <section class="header">
     <nav class="navbar navbar-dark navbar-default navbar-expand-xl">
         <a href="{{ route('website.home') }}" class="navbar-brand"><img src="{{ asset('website/images/bgdlogo.jpg') }}"
-                alt="logo">Zoom Laptop</a>
+                alt="logo">Used Laptop</a>
         {{-- mobile icon --}}
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -61,15 +61,6 @@
                         </li>
                     @endif
                 </ul>
-            </div>
-            <div class="neon_light_button">
-                <a href="{{ route('user.customize.product') }}">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Customize
-                </a>
             </div>
         </div>
     </nav>

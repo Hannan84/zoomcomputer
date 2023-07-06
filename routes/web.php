@@ -64,7 +64,6 @@ Route::group(['prefix' => 'website'], function () {
 
     // product details
     Route::get('/product/details/{id}', [HomeController::class, 'productDetails'])->name('website.product.details');
-    // Route::get('/user/compare/product', [HomeController::class, 'compareProduct'])->name('user.compare.product');
 
     Route::group(['middleware' => 'check_customer'], function () {
         // add to cart
@@ -75,13 +74,6 @@ Route::group(['prefix' => 'website'], function () {
         // order form
         Route::get('/order/form/{id}', [CartController::class, 'orderForm'])->name('website.order.form');
     });
-
-    // customization
-    Route::get('/user/customize/product', [CustomizeController::class, 'customize'])->name('user.customize.product');
-    Route::post('/user/order/customize/product', [CustomizeController::class, 'order'])->name('user.order.customize.product');
-    Route::get('/user/choose/customize/category/product/{id}', [CustomizeController::class, 'categoryProduct'])->name('customize.category.product');
-    Route::get('/user/add/customize/product/{id}', [CustomizeController::class, 'addProduct'])->name('user.add.customize.product');
-
 
     // footer
     Route::get('/user/refund/policy', [HomeController::class, 'refundPolicy'])->name('user.refund.policy');
@@ -141,27 +133,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/edit/offer/{id}', [OfferController::class, 'edit'])->name('admin.edit.offer');
         Route::post('/update/offer/{id}', [OfferController::class, 'update'])->name('admin.update.offer');
         Route::get('/delete/offer/{id}', [OfferController::class, 'delete'])->name('admin.delete.offer');
-
-        /////////////////////////// Customization part ///////////////////////////
-        // Category
-        Route::get('/manage/customize/category', [CustomizeCategoryController::class, 'manageCategory'])->name('admin.manage.customize.category');
-        Route::get('/add/customize/category', [CustomizeCategoryController::class, 'addCategory'])->name('admin.add.customize.category');
-        Route::post('/store/customize/category', [CustomizeCategoryController::class, 'store'])->name('admin.store.customize.category');
-        Route::get('/edit/customize/category/{id}', [CustomizeCategoryController::class, 'editCategory'])->name('admin.edit.customize.category');
-        Route::post('/update/customize/category/{id}', [CustomizeCategoryController::class, 'update'])->name('admin.update.customize.category');
-        Route::get('/delete/customize/category/{id}', [CustomizeCategoryController::class, 'delete'])->name('admin.delete.customize.category');
-        Route::get('/view/customize/category/image/{id}', [CustomizeCategoryController::class, 'view'])->name('admin.view.customize.category');
-        Route::post('/change/customize/category/image/{id}', [CustomizeCategoryController::class, 'change'])->name('admin.change.customize.category.image');
-
-        // Product
-        Route::get('/manage/customize/product', [CustomizeProductController::class, 'manageProduct'])->name('admin.manage.customize.product');
-        Route::get('/add/customize/product', [CustomizeProductController::class, 'add'])->name('admin.add.customize.product');
-        Route::post('/store/customize/product', [CustomizeProductController::class, 'store'])->name('admin.store.customize.product');
-        Route::get('/edit/customize/product/{id}', [CustomizeProductController::class, 'edit'])->name('admin.edit.customize.product');
-        Route::post('/update/customize/product/{id}', [CustomizeProductController::class, 'update'])->name('admin.update.customize.product');
-        Route::get('/delete/customize/product/{id}', [CustomizeProductController::class, 'delete'])->name('admin.delete.customize.product');
-        Route::get('/view/customize/product/image/{id}', [CustomizeProductController::class, 'view'])->name('admin.view.customize.product');
-        Route::post('/change/customize/product/image/{id}', [CustomizeProductController::class, 'change'])->name('admin.change.customize.product.image');
 
         /////////////////////////// Table part ///////////////////////////
         // Order List

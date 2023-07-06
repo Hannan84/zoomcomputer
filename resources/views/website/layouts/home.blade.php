@@ -87,7 +87,7 @@
     </section>
     <!-- notice -->
     <div class="text_animation">
-        <p id="pot">26th July Tuesday, our all branches are open except Multiplan Branch.
+        <p id="pot"><?php echo date("jS F l")?>, our all branches are open except Suvastu Arcade Branch.
             Additionally our online activities will remain open and operational.
         </p>
     </div>
@@ -126,30 +126,25 @@
         <div class="container">
             <div class="row">
                 @foreach ($products as $product)
-                    <div class="column d-flex align-items-stretch justify-content-center">
-                        <div class="box">
-                            <a href="{{ route('website.product.details', $product->id) }}">
-                                <div class="img-box">
-                                    <img src="{{ asset('uploads/products/' . $product->product_image) }}"
-                                        class="img-fluid">
+                    <div class="col-6 col-lg-3 d-flex align-items-stretch">
+                        <div class="card">
+                            <a href="{{ route('website.product.details', $product->id) }}" style="color:black;">
+                                <div class="card-body font-weight-bold">
+                                    <img src="{{ asset('uploads/products/' . $product->product_image) }}" alt=""
+                                        class="img-fluid"><br><br>
+                                    <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                        {{ $product->model }}</p>
+                                    <p style="color:#d11d1d">
+                                        {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
+                                    </p>
+
                                 </div>
                             </a>
-                            <div class="detail-box">
-                                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                    {{ $product->model }}
-                                </h5>
-                                <h6>
-                                    Price: {{ $product->regular_price }}
-                                </h6>
-                                <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-warning">
-                                    Add To Cart
-                                </a>
-                            </div>
                         </div>
                     </div>
                 @endforeach
             </div>
-            <div class="text-center mb-4"><a href="{{ route('website.all.product') }}" class="view_all_product_button btn">View All Product</a>
+            <div class="text-center mb-4 mt-4"><a href="{{ route('website.all.product') }}" class="view_all_product_button btn">View All Product</a>
             </div>
         </div>
     </section>
@@ -158,12 +153,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 font-weight-bold mt-4">
-                    <h1>We provide more services <i class="fa fa-handshake-o" aria-hidden="true"></i> </h1>
+                    <h3>We provide more services <i class="fa fa-handshake-o" aria-hidden="true"></i> </h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 p-2 mt-4">
-                    <h3 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> web hosting</h3><br>
+                    <h5 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> web hosting</h5><br>
                     <div class="description">
                         <article>
                             BGD Online Limited make registration of web hosting fast, secure, affordable and secure manner.
@@ -173,7 +168,7 @@
                     </div>
                 </div>
                 <div class="col-lg-12 p-2 mt-4">
-                    <h3 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> web development</h3>
+                    <h5 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> web development</h5>
                     <br>
                     <div class="description">
                         <article>
@@ -184,8 +179,8 @@
                     </div>
                 </div>
                 <div class="col-lg-12 p-2 mt-4">
-                    <h3 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> internet connectivity
-                    </h3><br>
+                    <h5 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> internet connectivity
+                    </h5><br>
                     <div class="description">
                         <article>
                             Internet access is the process that enables individuals and organisations to connect to the
@@ -194,8 +189,8 @@
                     </div>
                 </div>
                 <div class="col-lg-12 p-2 mt-4">
-                    <h3 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> Domain Registration
-                    </h3><br>
+                    <h5 class="text-capitalize"><i class="fa fa-asterisk" aria-hidden="true"></i> Domain Registration
+                    </h5><br>
                     <div class="description">
                         <article>
                             We provide Bangladeshi .bd or .bangla and the all the popular domain registration services. Our

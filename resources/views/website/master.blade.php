@@ -8,6 +8,7 @@
     <!-- css for nav -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -22,7 +23,7 @@
     <!-- Style Sheet -->
     <link rel="stylesheet" href="{{ asset('website/css/style.css') }}">
 
-    <title>Zoom Laptop Bd</title>
+    <title>Used Laptop Bd</title>
 </head>
 
 <body>

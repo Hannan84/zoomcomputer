@@ -166,27 +166,6 @@ class HomeController extends Controller
         $stocks = Stock::where('product_id', '=', $id)->get();
         return view('website.layouts.product_details', compact('product', 'stocks'));
     }
-
-    /***
-    public function compareProduct(Request $request)
-    {
-        $search_c1 = $request['search_c1'] ?? "";
-        $search_c2 = $request['search_c2'] ?? "";
-        // remain: specific product will be show
-        if ($search_c1 && $search_c2 != "") {
-            $search_c1 = Product::where('product_name', 'LIKE', "%$search_c1%")
-                ->orwhere('model', 'LIKE', "%$search_c1%")
-                ->get();
-            $search_c2 = Product::where('product_name', 'LIKE', "%$search_c2%")
-                ->orwhere('model', 'LIKE', "%$search_c2%")
-                ->get();
-            return view('website.layouts.compare_product_table', compact('search_c1', 'search_c2'));
-        } else {
-            return redirect()->route('website.home')->with('error', 'Search is empty');
-        }
-    }
-    ***/
-
     public function refundPolicy()
     {
         return view('website.layouts.refund_policy');
