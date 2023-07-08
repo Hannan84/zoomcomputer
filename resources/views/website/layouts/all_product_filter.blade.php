@@ -199,12 +199,21 @@
                                     </a>
                                     <div class="detail-box">
                                         <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                            Model: {{ $product->model }}
+                                            {{ $product->model }}
                                         </h5>
-                                        <h6>
-                                            Price: {{ $product->regular_price }}
+                                        <li>
+                                            Processor: {{ $product->processor }}
+                                        </li>
+                                        <li>
+                                            RAM: {{ $product->memory }}
+                                        </li>
+                                        <li>
+                                            Display: {{ $product->display }}
+                                        </li>
+                                        <h6 style="text-align:center; color:#d11d1d">
+                                            {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                         </h6>
-                                        <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-warning mb-1">
+                                        <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-secondary">
                                             Add To Cart
                                         </a>
                                     </div>

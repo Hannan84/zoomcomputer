@@ -515,10 +515,10 @@
 }
 
 .all-product .box {
-  color: #ffffff;
+  color: #000;
   border-radius: 15px;
   overflow: hidden;
-  background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+  background: linear-gradient(to bottom, #fff 25px, #fff 25px);
 }
 
 .all-product .box .box_image {
@@ -541,7 +541,9 @@
   justify-content: center;
   text-align: left;
 }
-
+.all-product .second .column .box .detail-box li {
+  color: rgb(97, 96, 96);
+}
 .all-product .second .column .box:hover img {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
