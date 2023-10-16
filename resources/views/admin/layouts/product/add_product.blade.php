@@ -41,7 +41,7 @@
             <input type="file" accept="image/*" name="product_image" class="form-control" id="img1" required>
         </div>
         <div class="form-group">
-            <label for="o1">Offer</label>
+            <label for="o1">Offer(%)</label>
             <input type="number" name="product_offer" class="form-control" id="o1" required>
         </div>
         <div class="form-group">

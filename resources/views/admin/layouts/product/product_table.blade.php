@@ -20,7 +20,7 @@
                 <th>Name</th>
                 <th>Regular Price</th>
                 <th>Image</th>
-                <th>Offer</th>
+                <th>Offer(%)</th>
                 <th>Product Description</th>
                 <!-- specification -->
                 <th>processor</th>

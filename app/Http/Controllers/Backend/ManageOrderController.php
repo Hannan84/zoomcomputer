@@ -27,7 +27,7 @@ class ManageOrderController extends Controller
     public function updateStock($id)
     {
         $order = Order::find($id);
-        $stock = Stock::where('id', $order->product_id)->get();
+        $stock = Stock::where('product_id', $order->product_id)->get();
         foreach ($stock as $st_qty) {
             $st_qty->update([
                 'total_produce' => $st_qty->total_produce - $order->quantity,
@@ -38,7 +38,7 @@ class ManageOrderController extends Controller
     public function rejectOrder($id)
     {
         $order = Order::find($id);
-        Notification::send($order, new OrderCancelNotification($order->model, $order->product_name, $order->price, $order->quantity));
+        // Notification::send($order, new OrderCancelNotification($order->model, $order->product_name, $order->price, $order->quantity));
         $order->update([
             'order_status' => 'canceled',
         ]);

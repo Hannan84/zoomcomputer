@@ -42,8 +42,24 @@
                 <td>{{ $order->offer }}</td>
                 <td>{{ $order->quantity }}</td>
                 <td>{{ $order->total }}</td>
-                <td>{{ $order->order_status }}</td>
-                <td>{{ $order->payment_status }}</td>
+                <td>
+                    @if($order->order_status == 'canceled')
+                    <span style="color:red">{{ $order->order_status }}</span>
+                    @elseif($order->order_status == 'accepted')
+                    <span style="color:green">{{ $order->order_status }}</span>
+                    @else
+                    <span>{{ $order->order_status }}</span>
+                    @endif
+                </td>
+                <td>
+                    @if($order->payment_status == 'canceled')
+                    <span style="color:red">{{ $order->payment_status }}</span>
+                    @elseif($order->payment_status == 'accepted')
+                    <span style="color:green">{{ $order->payment_status }}</span>
+                    @else
+                    <span>{{ $order->payment_status }}</span>
+                    @endif
+                </td>
 
                 <td>
                     @if($order->order_status == 'pending')
@@ -52,7 +68,7 @@
                     @elseif($order->order_status == 'canceled')
                     <a href="{{ route('admin.accept.order',$order->id) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
                     @elseif($order->order_status == 'accepted')
-                    <a href="{{ route('admin.reject.order',$order->id) }}" class="btn btn-danger mt-1"><i class="fa fa-times"></i></a>
+                    <!-- <a href="{{ route('admin.reject.order',$order->id) }}" class="btn btn-danger mt-1"><i class="fa fa-times"></i></a> -->
                     @endif
                 </td>
             </tr>

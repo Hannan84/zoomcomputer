@@ -980,3 +980,51 @@
 .social-links a:hover {
   color: #23499c;
 }
+/***** FOR MOBILE DESIGN *****/
+@media (max-width: 768px){
+  .main-footer {
+    flex-wrap: wrap;
+    padding: 20px 0 0;
+  }
+  .main-footer h4{
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 11px;
+  }
+  .org-info, .about-us, .contact-us {
+    flex: 1 1 100%;
+    padding: 0;
+  }
+  .about-us ul {
+    text-align: center;
+    display: block;
+    padding-bottom: 20px;
+  }
+  .about-us ul li{
+    width: auto;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .footer-big-btn {
+    max-width: 300px;
+    margin: 0 auto 20px;
+  }
+  .footer-block {
+    margin-bottom: 10px;
+  }
+  .org-info{
+    text-align: center;
+  }
+  .org-info p{
+    max-width: 340px;
+    margin: 0 auto 10px;
+  }
+  .social-footer {
+    display: block;
+  }
+  .social-links{
+    padding: 20px 0;
+    text-align: center;
+  }
+}

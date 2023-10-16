@@ -150,7 +150,7 @@ class HomeController extends Controller
     public function laptopDeals()
     {
         // laravel query for laptop deals
-        $product = Product::all();
+        $product = Product::where('product_offer', '>', '0')->get();
         $laptopDeals = $product;
         return view('website.layouts.laptop_deals', compact('laptopDeals'));
     }
