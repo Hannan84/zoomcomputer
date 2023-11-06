@@ -126,7 +126,7 @@
                         <div class="card">
                             <a href="{{ route('website.product.details', $product->id) }}" style="color:black;">
                                 <div class="card-body font-weight-bold">
-                                    <img src="{{ asset('uploads/products/' . $product->product_image) }}" alt=""
+                                    <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}" alt=""
                                         class="img-fluid"><br><br>
                                     <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                         {{ $product->model }}</p>

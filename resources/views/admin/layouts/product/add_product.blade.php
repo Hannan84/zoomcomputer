@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="img1">Image</label>
-            <input type="file" accept="image/*" name="product_image" class="form-control" id="img1" required>
+            <input type="file" accept="image/*" name="product_image[]" multiple class="form-control" id="img1" required>
         </div>
         <div class="form-group">
             <label for="o1">Offer(%)</label>

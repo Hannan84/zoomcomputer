@@ -57,7 +57,7 @@
                         </li>
                     @else
                         <li style="--clr:#f1c40f;">
-                            <a href="{{ route('users.login.form') }}" data-text="accounts">Accounts</a>
+                            <a href="{{ route('users.login.form') }}" data-text="login">Login</a>
                         </li>
                     @endif
                 </ul>

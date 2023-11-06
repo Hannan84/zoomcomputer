@@ -12,11 +12,7 @@
         <br>
         <div class="container">
             <div class="title text-center p-4 border border-dark">
-                <p>স্টার টেক অনলাইন শপ অথবা যেকোন আউটলেট থেকে Palit, MSI, ASUS সহ
-
-                    জনপ্রিয় সব ব্র্যান্ডের গ্রাফিক্স কার্ড কিনলেই পাচ্ছেন সর্বোচ্চ ৯৫০০ টাকা পর্যন্ত মূল্যছাড়! এছাড়াও
-                    সর্বোচ্চ ২৭০০০ টাকা মূল্যছাড়ে পাচ্ছেন আকর্ষনীয় সব ট্যাবলেট।
-                </p> <br><br>
+                <p>ইউসড ল্যাপটপ বিডি অনলাইন শপ থেকে যেকোনো ব্র্যান্ডের ল্যাপটপ কিনলেই পাচ্ছেন সর্বোচ্চ ছাড়, !</p> <br><br>
                 <h2>অফারের পণ্যগুলো দেখতে নিচে স্ক্রল করুন &nbsp; ⬇️</h2>
             </div>
         </div>
@@ -24,8 +20,8 @@
     <!-- laptop -->
     <section class="all-deals">
         <div class="dealsHeader">
-            <h1>Ramadan Laptop Mega Deal</h1>
-            <p>Get exciting discount on Graphics Card</p>
+            <h1>Laptop Mega Deal</h1>
+            <p>Get exciting discount on Laptop</p>
         </div>
         <div class="container">
             <div class="row">
@@ -38,7 +34,7 @@
                             </p>
                             {{-- image --}}
                             <div class="card-img">
-                                <img src="{{ asset('uploads/products/' . $deal->product_image) }}">
+                                <img src="{{ asset('uploads/products/' .explode('|',$deal->product_image)[0]) }}">
                             </div>
                             {{-- cart body --}}
                             <div class="card-details">

@@ -19,7 +19,7 @@
                         <div class="box">
                             <a href="{{ route('website.product.details', $product->id) }}">
                                 <div class="img-box">
-                                    <img src="{{ asset('uploads/products/' . $product->product_image) }}"
+                                    <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}"
                                         class="img-fluid">
                                 </div>
                             </a>

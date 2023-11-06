@@ -157,8 +157,9 @@ class HomeController extends Controller
     public function laptopDealsDetails($id)
     {
         $product = Product::find($id);
+        $product_images = explode('|',$product->product_image);
         $stocks = Stock::where('product_id', '=', $id)->get();
-        return view('website.layouts.laptop_deals_details', compact('product', 'stocks'));
+        return view('website.layouts.laptop_deals_details', compact('product', 'stocks', 'product_images'));
     }
     public function productDetails($id)
     {

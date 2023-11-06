@@ -25,7 +25,8 @@ class ProductController extends Controller
             'model' => 'required|unique:products',
             'product_name' => 'required|unique:products',
             'regular_price' => 'required',
-            'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
+            'product_image' => 'required',
+            'product_image.*' => 'mimes:jpg,png,jpeg|max:5048',
             'product_offer' => 'required',
             'category_id' => 'required',
             'product_description' => 'required',
@@ -55,17 +56,22 @@ class ProductController extends Controller
 
         ]);
 
-        $filename = '';
+        $data = array();
         if ($request->hasfile('product_image')) {
             $file = $request->file('product_image');
-            $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/uploads/products'), $filename);
+            // $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
+            // $file->move(public_path('/uploads/products'), $filename);
+            foreach ($file as $image) {
+                $filename = md5(rand(1, 1000)) . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('/uploads/products'), $filename);
+                $data[] = $filename;
+            }
         }
         Product::create([
             'model' => $request->model,
             'product_name' => $request->product_name,
             'regular_price' => $request->regular_price,
-            'product_image' => $filename,
+            'product_image' => implode('|',$data),
             'product_offer' => $request->product_offer,
             'product_description' => $request->product_description,
             // specifications
