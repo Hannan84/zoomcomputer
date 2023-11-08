@@ -98,6 +98,15 @@
     <script src="{{ asset('admin/js/chart-bar-demo.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="{{ asset('admin/js/datatables-simple-demo.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $("#img1").on("change", function() {
+            if ($("#img1")[0].files.length > 3) {
+                alert("You can select only 3 images");
+                $(this).val('');
+            }
+        });
+    </script>
 </body>
 
 </html>

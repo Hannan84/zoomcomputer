@@ -12,10 +12,10 @@
             <div class="col-lg-12  p-3 main-section bg-white">
                 <div class="row">
                     <div class="col-lg-6 left-side-product-box pb-3">
-                        <img src="{{ asset('/uploads/products/' .explode('|',$product->product_image)[0]) }}" class=" p-3">
-                        <span class="sub-img">
+                        <img src="{{ asset('/uploads/products/' .explode('|',$product->product_image)[0]) }}" id="expandedImg" style="width:100%; height: 80%;" class="p-3">
+                        <span class="column_img">
                             @foreach ($product_images as $image)
-                                <img src="{{ asset('/uploads/products/' .$image ) }}" class=" p-2">
+                            <img src="{{ asset('/uploads/products/' .$image ) }}" style="width:100%;" onclick="myFunction(this);" class="p-2">
                             @endforeach
                         </span>
                     </div>
@@ -57,8 +57,8 @@
                                         <div class="col-lg-6 ">
                                             <form action="{{ route('website.order.form', $product->id) }}" method="GET">
                                                 @csrf
-                                                <input type="number" name="quantity" class="form-control text-center w-100"
-                                                    value="">
+                                                <input type="number" min="1" name="quantity" class="form-control text-center w-100"
+                                                    value="1">
                                                 <button type="submit" class="btn btn-success w-100 text-center mt-2">
                                                     Buy Now
                                                 </button>

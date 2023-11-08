@@ -20,7 +20,7 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     </div>
-                    <h4 class="m-2">Desktop</h4>
+                    <h4 class="m-2">Laptop</h4>
                 </div>
                 <div class="col-12 col-lg-4">
                     <h4 class="total_result">Total product found: {{ $result }}</h4>
@@ -190,7 +190,7 @@
                 <div class="container">
                     <div class="row">
                         @foreach ($products as $product)
-                            <div class="column d-flex align-items-stretch">
+                            <div class="column d-flex align-items-stretch justify-content-center">
                                 <div class="box">
                                     <a href="{{ route('website.product.details', $product->id) }}">
                                         <div class="box_image">
@@ -213,8 +213,8 @@
                                         <h6 style="text-align:center; color:#d11d1d">
                                             {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                         </h6>
-                                        <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-secondary">
-                                            Add To Cart
+                                        <a href="{{ route('website.product.details', $product->id) }}" class="btn btn-secondary">
+                                            Product Details
                                         </a>
                                     </div>
                                 </div>

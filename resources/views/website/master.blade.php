@@ -22,7 +22,6 @@
     </script>
     <!-- Style Sheet -->
     <link rel="stylesheet" href="{{ asset('website/css/style.css') }}">
-
     <title>Used Laptop Bd</title>
 </head>
 
@@ -46,6 +45,13 @@
             window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload",
                 loader);
         })(window, document);
+    </script>
+    <script>
+        function myFunction(imgs) {
+        var expandImg = document.getElementById("expandedImg");
+        expandImg.src = imgs.src;
+        expandImg.parentElement.style.display = "block";
+        }
     </script>
 </body>
 

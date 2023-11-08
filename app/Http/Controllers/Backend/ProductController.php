@@ -147,33 +147,53 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::find($id);
-        $image = str_replace('\\', '/', public_path('uploads/products/' . $product->product_image));
-        if (is_file($image)) {
-            unlink($image);
+        $product_images = explode('|',$product->product_image);
+        if (count($product_images) > 1){
+            foreach ($product_images as $product_image){
+                $image = str_replace('\\', '/', public_path('uploads/products/' . $product_image));
+                if (is_file($image)) {
+                    unlink($image);
+                } else {
+                    $product->delete();
+                    return redirect()->back()->with('error', 'image not found! product deleted');
+                }
+            }
             $product->delete();
             return redirect()->route('admin.manage.product')->with('error', 'Product deleted');
-        } else {
-            $product->delete();
-            return redirect()->back()->with('error', 'image not found! product deleted');
+        }
+        else{
+            $image = str_replace('\\', '/', public_path('uploads/products/' . $product->product_image));
+            if (is_file($image)) {
+                unlink($image);
+                $product->delete();
+                return redirect()->route('admin.manage.product')->with('error', 'Product deleted');
+            } else {
+                $product->delete();
+                return redirect()->back()->with('error', 'image not found! product deleted');
+            }
         }
     }
 
     public function view($id)
     {
         $product = Product::find($id);
-        return view('admin.layouts.product.view_product', compact('product'));
+        $product_images = explode('|',$product->product_image);
+        return view('admin.layouts.product.view_product', compact('product','product_images'));
     }
     public function change(Request $request, $id)
     {
         $product = Product::find($id);
-        $filename = '';
+        $data = array();
         if ($request->hasfile('product_image')) {
             $file = $request->file('product_image');
-            $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/uploads/products'), $filename);
+            foreach ($file as $image) {
+                $filename = md5(rand(1, 1000)) . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('/uploads/products'), $filename);
+                $data[] = $filename;
+            }
         }
         $product->update([
-            'product_image' => $filename,
+            'product_image' => implode('|',$data),
         ]);
         return redirect()->route('admin.manage.product')->with('message', 'Product Image Updated');
     }

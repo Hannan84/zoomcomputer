@@ -30,7 +30,7 @@
                         <div class="card">
                             {{-- badge --}}
                             <p class="card-badge">
-                                Save: {{ ($deal['regular_price'] * $deal['product_offer']) / 100 }} ৳
+                                Save: {{ $deal['product_offer'] }} ৳
                             </p>
                             {{-- image --}}
                             <div class="card-img">
@@ -42,7 +42,7 @@
                                     <p>
                                         {{ $deal->model }}
                                     </p>
-                                    <span class="text-danger">{{ $deal['regular_price'] - (($deal['regular_price'] * $deal['product_offer']) / 100) }}৳ <small class="text-info"><s>{{ $deal->regular_price }} ৳</s></small></span>
+                                    <span class="text-danger">{{ ($deal['regular_price'] - $deal['product_offer']) }}৳ <small class="text-info"><s>{{ $deal->regular_price }} ৳</s></small></span>
                                 </a>
                             </div>
                         </div>

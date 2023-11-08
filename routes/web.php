@@ -67,7 +67,7 @@ Route::group(['prefix' => 'website'], function () {
 
     Route::group(['middleware' => 'check_customer'], function () {
         // add to cart
-        Route::get('/add/to/cart/{id}', [CartController::class, 'cart'])->name('add.to.cart');
+        Route::get('/add/to/cart/{id}/{deal?}', [CartController::class, 'cart'])->name('add.to.cart');
         Route::get('/clear/cart', [CartController::class, 'clearCart'])->name('clear.cart');
         Route::get('/user/remove/cart/{id}', [CartController::class, 'remove'])->name('user.remove.cart');
         Route::get('/user/checkout', [CartController::class, 'checkout'])->name('user.checkout');

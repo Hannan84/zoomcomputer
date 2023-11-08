@@ -31,12 +31,11 @@
                                         <td>
                                             {{ $cart['product_name'] }}
                                         </td>
-                                        <td>{{ $cart['regular_price'] }}</td>
-                                        <td>{{ $cart['product_offer'] }} %</td>
+                                        <td>{{ $cart['regular_price'] }} tk</td>
+                                        <td>{{ $cart['product_offer'] }} tk</td>
                                         <td>{{ $cart['product_quantity'] }}</td>
                                         <td>
-                                            {{ $cart['regular_price'] * $cart['product_quantity'] - ($cart['regular_price'] * $cart['product_quantity'] * $cart['product_offer']) / 100 }}
-                                            tk
+                                            {{ ($cart['regular_price'] - $cart['product_offer']) * $cart['product_quantity'] }} tk
                                         </td>
                                         <td>
                                             <a href="{{ route('user.remove.cart', $key) }}" class="btn btn-light">

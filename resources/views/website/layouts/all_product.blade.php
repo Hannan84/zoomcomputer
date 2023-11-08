@@ -19,7 +19,7 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     </div>
-                    <h4 class="m-2">Desktop</h4>
+                    <h4 class="m-2">Laptop</h4>
                 </div>
                 <div class="col-lg-4 col-s-6">
                     {{-- shorting --}}

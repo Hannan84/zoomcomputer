@@ -16,7 +16,7 @@
             <input type="number" name="regular_price" value="{{ $product->regular_price }}" class="form-control" id="rp1" placeholder="Enter product price" required>
         </div>
         <div class="form-group">
-            <label for="o1">Offer(%)</label>
+            <label for="o1">Offer Price</label>
             <input type="number" name="product_offer" value="{{ $product->product_offer }}" class="form-control" id="o1" placeholder="Enter product offer(if don't enter 0)" required>
         </div>
         <div class="form-group">

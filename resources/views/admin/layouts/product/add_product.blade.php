@@ -37,11 +37,11 @@
             <input type="number" name="regular_price" class="form-control" id="rp1" required>
         </div>
         <div class="form-group">
-            <label for="img1">Image</label>
+            <label for="img1">Image <span style="font-size:12px;">(max 3)</span></label>
             <input type="file" accept="image/*" name="product_image[]" multiple class="form-control" id="img1" required>
         </div>
         <div class="form-group">
-            <label for="o1">Offer(%)</label>
+            <label for="o1">Offer Price</label>
             <input type="number" name="product_offer" class="form-control" id="o1" required>
         </div>
         <div class="form-group">

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function cart($id)
+    public function cart(Request $request,$id)
     {
         $product = Product::find($id);
         if (!$product) {
@@ -19,34 +19,70 @@ class CartController extends Controller
         $cartExist = session()->get('cart');
         // case-1:no cart
         if (!$cartExist) {
-            $cartData = [$id => [
-                'product_id' => $product->id,
-                'product_model' => $product->model,
-                'product_name' => $product->product_name,
-                'regular_price' => $product->regular_price,
-                'product_offer' => $product->product_offer,
-                'product_quantity' => 1,
-            ]];
-            session()->put('cart', $cartData);
-            return redirect()->back()->with('message', 'Product added into the cart');
+            if(!$request->deal){
+                $cartData = [$id => [
+                    'product_id' => $product->id,
+                    'product_model' => $product->model,
+                    'product_name' => $product->product_name,
+                    'regular_price' => $product->regular_price,
+                    'product_offer' => $product->product_offer,
+                    'product_quantity' => 1,
+                ]];
+                session()->put('cart', $cartData);
+                return redirect()->back()->with('message', 'Product added into the cart');
+            }
+            else{
+                $cartData = [$id => [
+                    'product_id' => $product->id,
+                    'product_model' => $product->model,
+                    'product_name' => $product->product_name,
+                    'regular_price' => ($product->regular_price - $product->product_offer),
+                    'product_offer' => $product->product_offer,
+                    'product_quantity' => 1,
+                ]];
+                session()->put('cart', $cartData);
+                return redirect()->back()->with('message', 'Product added into the cart');
+            }
         }
         // case-2:already one cart exist
         if (!isset($cartExist[$id])) {
-            $cartExist[$id] = [
-                'product_id' => $product->id,
-                'product_model' => $product->model,
-                'product_name' => $product->product_name,
-                'regular_price' => $product->regular_price,
-                'product_offer' => $product->product_offer,
-                'product_quantity' => 1,
-            ];
-            session()->put('cart', $cartExist);
-            return redirect()->route('website.home')->with('message', 'Product added into the cart');
+            if(!$request->deal){
+                $cartExist[$id] = [
+                    'product_id' => $product->id,
+                    'product_model' => $product->model,
+                    'product_name' => $product->product_name,
+                    'regular_price' => $product->regular_price,
+                    'product_offer' => $product->product_offer,
+                    'product_quantity' => 1,
+                ];
+                session()->put('cart', $cartExist);
+                return redirect()->back()->with('message', 'Product added into the cart');
+            }
+            else{
+                $cartExist[$id] = [
+                    'product_id' => $product->id,
+                    'product_model' => $product->model,
+                    'product_name' => $product->product_name,
+                    'regular_price' => ($product->regular_price - $product->product_offer),
+                    'product_offer' => $product->product_offer,
+                    'product_quantity' => 1,
+                ];
+                session()->put('cart', $cartExist);
+                return redirect()->back()->with('message', 'Product added into the cart');
+            }
         }
-        // case-3: same product adding into the cart
-        $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
-        session()->put('cart', $cartExist);
-        return redirect()->route('website.home')->with('message', 'Product added into the cart');
+        // case-3: same product adding into the cart        
+        if(!$request->deal){
+            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
+            session()->put('cart', $cartExist);
+            return redirect()->back()->with('message', 'Product already added into the cart and quantity');
+        }
+        else{
+            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
+            $cartExist[$id]['product_offer'] = $cartExist[$id]['product_offer'] + $product->product_offer;
+            session()->put('cart', $cartExist);
+            return redirect()->back()->with('message', 'Product already added into the cart and quantity');
+        }
     }
 
     public function clearCart()
@@ -92,43 +128,50 @@ class CartController extends Controller
     public function orderForm(Request $request, $id)
     {
         $product = Product::find($id);
-        $stock = Stock::where('id',$product->id)->get();
-        foreach($stock as $st_qty){
-            $st_qty->total_produce;
-        }
-        if ($st_qty->total_produce <= $request->quantity) {
+        $stock = Stock::where('product_id',$product->id)->get();
+
+
+//        foreach($stock as $st_qty){
+//            $st_qty->total_produce;
+//        }
+        if (empty($stock[0])) {
             return redirect()->back()->with('error', 'Out of stock');
         }
-        $cartExist = session()->get('cart');
-        // case-1:no cart
-        if (!$cartExist) {
-            $cartData = [$id => [
-                'product_id' => $product->id,
-                'product_model' => $product->model,
-                'product_name' => $product->product_name,
-                'regular_price' => $product->regular_price,
-                'product_offer' => $product->product_offer,
-                'product_quantity' => $request->quantity,
-            ]];
-            session()->put('cart', $cartData);
-            return redirect()->back()->with('message', 'Product added into the cart');
+        else if ($stock[0]->total_produce < $request->quantity) {
+            return redirect()->back()->with('error', 'Out of stock');
         }
-        // case-2:already one cart exist
-        if (!isset($cartExist[$id])) {
-            $cartExist[$id] = [
-                'product_id' => $product->id,
-                'product_model' => $product->model,
-                'product_name' => $product->product_name,
-                'regular_price' => $product->regular_price,
-                'product_offer' => $product->product_offer,
-                'product_quantity' => $request->quantity,
-            ];
+        else{
+            $cartExist = session()->get('cart');
+            // case-1:no cart
+            if (!$cartExist) {
+                $cartData = [$id => [
+                    'product_id' => $product->id,
+                    'product_model' => $product->model,
+                    'product_name' => $product->product_name,
+                    'regular_price' => $product->regular_price,
+                    'product_offer' => $product->product_offer,
+                    'product_quantity' => $request->quantity,
+                ]];
+                session()->put('cart', $cartData);
+                return redirect()->back()->with('message', 'Product added into the cart');
+            }
+            // case-2:already one cart exist
+            if (!isset($cartExist[$id])) {
+                $cartExist[$id] = [
+                    'product_id' => $product->id,
+                    'product_model' => $product->model,
+                    'product_name' => $product->product_name,
+                    'regular_price' => $product->regular_price,
+                    'product_offer' => $product->product_offer,
+                    'product_quantity' => $request->quantity,
+                ];
+                session()->put('cart', $cartExist);
+                return redirect()->back()->with('message', 'Product added into the cart');
+            }
+            // case-3: same product adding into the cart
+            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
             session()->put('cart', $cartExist);
             return redirect()->back()->with('message', 'Product added into the cart');
         }
-        // case-3: same product adding into the cart
-        $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
-        session()->put('cart', $cartExist);
-        return redirect()->back()->with('message', 'Product added into the cart');
     }
 }
