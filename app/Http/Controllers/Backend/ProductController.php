@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -25,8 +26,7 @@ class ProductController extends Controller
             'model' => 'required|unique:products',
             'product_name' => 'required|unique:products',
             'regular_price' => 'required',
-            'product_image' => 'required',
-            'product_image.*' => 'mimes:jpg,png,jpeg|max:5048',
+            'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
             'product_offer' => 'required',
             'category_id' => 'required',
             'product_description' => 'required',
@@ -59,11 +59,10 @@ class ProductController extends Controller
         $data = array();
         if ($request->hasfile('product_image')) {
             $file = $request->file('product_image');
-            // $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
-            // $file->move(public_path('/uploads/products'), $filename);
             foreach ($file as $image) {
                 $filename = md5(rand(1, 1000)) . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('/uploads/products'), $filename);
+                Image::make($file->getRealPath())->resize(640, 640)->save(public_path('/uploads/products') .'/'. $filename);
+                // $image->move(public_path('/uploads/products'), $filename);
                 $data[] = $filename;
             }
         }
@@ -188,7 +187,8 @@ class ProductController extends Controller
             $file = $request->file('product_image');
             foreach ($file as $image) {
                 $filename = md5(rand(1, 1000)) . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('/uploads/products'), $filename);
+                Image::make($file->getRealPath())->resize(640, 640)->save(public_path('/uploads/products') .'/'. $filename);
+                // $image->move(public_path('/uploads/products'), $filename);
                 $data[] = $filename;
             }
         }

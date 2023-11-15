@@ -9,39 +9,32 @@
 @endif
 <!-- end -->
 <div class="manage_table">
-    <table class="table table-borderless table-hover">
-        <thead class="table-primary text-capitalize">
+    <table class="table table-hover">
+        <thead class="table-primary table-responsive-sm text-center text-capitalize">
             <tr class="text-center">
-                <th>customer id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Product id</th>
-                <th>Name</th>
-                <th>Model</th>
-                <th>Price</th>
-                <th>Offer</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Order Status</th>
-                <th>Payment Status</th>
+                <th>Address</th>
+                <th>OrderId</th>
+                <th>Pay Mode</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Item</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach($orders as $order)
             <tr class="text-center">
-                <td>{{ $order->customer_id }}</td>
                 <td>{{ $order->name }}</td>
                 <td>{{ $order->email }}</td>
                 <td>{{ $order->phone }}</td>
-                <td>{{ $order->product_id }}</td>
-                <td>{{ $order->product_name }}</td>
-                <td>{{ $order->model }}</td>
-                <td>{{ $order->price }}</td>
-                <td>{{ $order->offer }}</td>
-                <td>{{ $order->quantity }}</td>
-                <td>{{ $order->total }}</td>
+                <td>{{ $order->address }}</td>
+                <td style="color:red">{{ $order->order_code }}</td>
+                <td>{{ $order->pay_type }}</td>
+                <td>{{ date_format($order['created_at'],"Y-m-d") }}</td>
                 <td>
                     @if($order->order_status == 'canceled')
                     <span style="color:red">{{ $order->order_status }}</span>
@@ -60,7 +53,37 @@
                     <span>{{ $order->payment_status }}</span>
                     @endif
                 </td>
-
+                <td>
+                    <table class="table">
+                        <thead class="table-secondary table-responsive-sm text-center text-capitalize">
+                            <tr class="text-center">
+                                <th>Model</th>
+                                <th>Price</th>
+                                <th>Offer</th>
+                                <th>Qty</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $total = 0; @endphp
+                            @foreach ($orderDetails as $key => $detail)
+                                @php $total += $detail->total @endphp
+                                @if ($order->id == $detail->order_id)
+                                    <tr class="text-center">
+                                        <td>{{ $detail->model }}</td>
+                                        <td>{{ $detail->price }} tk</td>
+                                        <td>{{ $detail->offer }} tk</td>
+                                        <td>{{ $detail->quantity }}</td>
+                                        <td>{{ $detail->total }} tk</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                        <tr>
+                            <th colspan="4">Total</th><th>{{ number_format(floatval($total), 2, '.') }} Tk</th>
+                        </tr>
+                    </table>
+                </td>
                 <td>
                     @if($order->order_status == 'pending')
                     <a href="{{ route('admin.accept.order',$order->id) }}" class="btn btn-success"><i class="fa fa-check"></i></a>

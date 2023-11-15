@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
@@ -20,13 +21,14 @@ class CategoryController extends Controller
     public function store(Request $request){
         $request->validate([
             'category_name'=>'required|unique:categories',
-            'image'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
         ]);
             $filename = '';
             if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('/uploads/category'), $filename);
+                Image::make($file->getRealPath())->resize(300, 300)->save(public_path('/uploads/category') .'/'. $filename);
+                // $file->move(public_path('/uploads/category'), $filename);
             }
             Category::create([
                 'category_name'=>$request->category_name,
@@ -71,7 +73,8 @@ class CategoryController extends Controller
             if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('/uploads/category'), $filename);
+                Image::make($file->getRealPath())->resize(300, 300)->save(public_path('/uploads/category') .'/'. $filename);
+                // $file->move(public_path('/uploads/category'), $filename);
             }
         $category->update([
             'image'=>$filename,

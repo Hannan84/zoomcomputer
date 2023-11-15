@@ -4,10 +4,10 @@
     <form action="{{ route('admin.store.stock') }}" method="post">
         @csrf
         <div class="form-group">
-            <label for="pnn1">Product Name</label>
+            <label for="pnn1">Product Model</label>
             <select class="form-control" id="pnn1" name="product_id">
                 @foreach($stock as $product)
-                <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                <option value="{{ $product->id }}">{{ $product->model }}</option>
                 @endforeach
             </select>
         </div>

@@ -21,6 +21,7 @@ use App\Http\Controllers\Website\CustomizeController;
 
 /////////////////////////// Website ///////////////////////////
 Route::get('/', [HomeController::class, 'home'])->name('website.home');
+Route::get('/shop', [HomeController::class, 'home'])->name('website.home');
 
 Route::group(['prefix' => 'website'], function () {
 
@@ -56,11 +57,18 @@ Route::group(['prefix' => 'website'], function () {
     Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
 
     // user profile
-    Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
-    Route::get('/user/edit/profile/{id}', [UserController::class, 'edit'])->name('user.edit.profile');
-    Route::post('/user/update/profile/{id}', [UserController::class, 'updateProfile'])->name('user.update.profile');
-    Route::get('/user/view/order/list/{id}', [UserController::class, 'orderList'])->name('user.view.order.list');
-    Route::get('/user/view/my/cart', [UserController::class, 'myCart'])->name('user.view.my.cart');
+    Route::middleware(['check_customer'])->group(function () {
+        // All routes in this group are protected by the auth middleware
+        Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
+        Route::get('/user/edit/profile/{id}', [UserController::class, 'edit'])->name('user.edit.profile');
+        Route::post('/user/update/profile/{id}', [UserController::class, 'updateProfile'])->name('user.update.profile');
+        Route::get('/user/view/order/list/{id}', [UserController::class, 'orderList'])->name('user.view.order.list');
+        Route::get('/user/view/orderDetail/list/{id}', [UserController::class, 'orderDetail'])->name('view.detail.list');
+        Route::get('/user/view/my/cart', [UserController::class, 'myCart'])->name('user.view.my.cart');
+        // user password change
+        Route::get('/change/password', [UserController::class, 'reset'])->name('user.change-password');
+        Route::post('/update/password', [UserController::class, 'update_password'])->name('user.update-password');
+    });
 
     // product details
     Route::get('/product/details/{id}', [HomeController::class, 'productDetails'])->name('website.product.details');
@@ -71,6 +79,7 @@ Route::group(['prefix' => 'website'], function () {
         Route::get('/clear/cart', [CartController::class, 'clearCart'])->name('clear.cart');
         Route::get('/user/remove/cart/{id}', [CartController::class, 'remove'])->name('user.remove.cart');
         Route::get('/user/checkout', [CartController::class, 'checkout'])->name('user.checkout');
+        Route::post('/user/orderPlace', [CartController::class, 'orderPlace'])->name('user.placeOrder');
         // order form
         Route::get('/order/form/{id}', [CartController::class, 'orderForm'])->name('website.order.form');
     });
@@ -91,6 +100,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
     Route::group(['middleware' => ['auth', 'check_admin']], function () {
+        // admin password change
+        Route::get('/change/password', [AdminLoginController::class, 'reset'])->name('admin.change-password');
+        Route::post('/update/password', [AdminLoginController::class, 'update_password'])->name('admin.update-password');
 
         // dashboard
         Route::get('/dashboard', [DashBoardController::class, 'dashboard'])->name('admin.dashboard');

@@ -18,7 +18,7 @@
                 <th scope="col">SL</th>
                 <th scope="col">product_id</th>
                 <th scope="col">Total Produce</th>
-                <th scope="col">Available Stock</th>
+                <!-- <th scope="col">Available Stock</th> -->
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -26,9 +26,9 @@
             @foreach($stock as $key=>$product)
             <tr class="text-center">
                 <td>{{ $key+1 }}</td>
-                <td>{{ $product->product_id }}</td>
+                <td>{{ $product->product->model }}</td>
                 <td>{{ $product->total_produce }}</td>
-                <td>1</td>
+                <!-- <td>1</td> -->
                 <td>
                     <a href="{{ route('admin.edit.stock',$product->id) }}" class="btn btn-primary"><i class="fa fa-th-list"></i></a>
                     <a href="{{ route('admin.delete.stock',$product->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>

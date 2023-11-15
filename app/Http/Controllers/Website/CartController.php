@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\orderDetails;
 use App\Models\Product;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -19,76 +21,44 @@ class CartController extends Controller
         $cartExist = session()->get('cart');
         // case-1:no cart
         if (!$cartExist) {
-            if(!$request->deal){
-                $cartData = [$id => [
-                    'product_id' => $product->id,
-                    'product_model' => $product->model,
-                    'product_name' => $product->product_name,
-                    'regular_price' => $product->regular_price,
-                    'product_offer' => $product->product_offer,
-                    'product_quantity' => 1,
-                ]];
-                session()->put('cart', $cartData);
-                return redirect()->back()->with('message', 'Product added into the cart');
-            }
-            else{
-                $cartData = [$id => [
-                    'product_id' => $product->id,
-                    'product_model' => $product->model,
-                    'product_name' => $product->product_name,
-                    'regular_price' => ($product->regular_price - $product->product_offer),
-                    'product_offer' => $product->product_offer,
-                    'product_quantity' => 1,
-                ]];
-                session()->put('cart', $cartData);
-                return redirect()->back()->with('message', 'Product added into the cart');
-            }
+            $cartData = [$id => [
+                'product_id' => $product->id,
+                'product_model' => $product->model,
+                'product_name' => $product->product_name,
+                'regular_price' => $product->regular_price,
+                'product_offer' => $product->product_offer * $request->quantity,
+                'product_quantity' => $request->quantity,
+            ]];
+            session()->put('cart', $cartData);
+            toastr()->success('Product added into the cart');
+            return redirect()->back();
         }
         // case-2:already one cart exist
         if (!isset($cartExist[$id])) {
-            if(!$request->deal){
-                $cartExist[$id] = [
-                    'product_id' => $product->id,
-                    'product_model' => $product->model,
-                    'product_name' => $product->product_name,
-                    'regular_price' => $product->regular_price,
-                    'product_offer' => $product->product_offer,
-                    'product_quantity' => 1,
-                ];
-                session()->put('cart', $cartExist);
-                return redirect()->back()->with('message', 'Product added into the cart');
-            }
-            else{
-                $cartExist[$id] = [
-                    'product_id' => $product->id,
-                    'product_model' => $product->model,
-                    'product_name' => $product->product_name,
-                    'regular_price' => ($product->regular_price - $product->product_offer),
-                    'product_offer' => $product->product_offer,
-                    'product_quantity' => 1,
-                ];
-                session()->put('cart', $cartExist);
-                return redirect()->back()->with('message', 'Product added into the cart');
-            }
+            $cartExist[$id] = [
+                'product_id' => $product->id,
+                'product_model' => $product->model,
+                'product_name' => $product->product_name,
+                'regular_price' => $product->regular_price,
+                'product_offer' => $product->product_offer * $request->quantity,
+                'product_quantity' => $request->quantity,
+            ];
+            session()->put('cart', $cartExist);
+            toastr()->success('Product added into the cart');
+            return redirect()->back();
         }
         // case-3: same product adding into the cart        
-        if(!$request->deal){
-            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
-            session()->put('cart', $cartExist);
-            return redirect()->back()->with('message', 'Product already added into the cart and quantity');
-        }
-        else{
-            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
-            $cartExist[$id]['product_offer'] = $cartExist[$id]['product_offer'] + $product->product_offer;
-            session()->put('cart', $cartExist);
-            return redirect()->back()->with('message', 'Product already added into the cart and quantity');
-        }
+        $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + $request->quantity;
+        $cartExist[$id]['product_offer'] = $cartExist[$id]['product_offer'] + ($product->product_offer * $request->quantity);
+        session()->put('cart', $cartExist);
+        toastr()->success('Product already added into the cart and update quantity');
+        return redirect()->back();
     }
 
     public function clearCart()
     {
         session()->forget('cart');
-        return redirect()->route('website.home')->with('error', 'Cart Cleared');
+        return redirect()->route('website.home')->with('warning', 'Cart Cleared');
     }
 
     public function remove($id)
@@ -96,30 +66,58 @@ class CartController extends Controller
         $cart = session()->get('cart');
         unset($cart[$id]);
         session()->put('cart', $cart);
-        return redirect()->back()->with('error', 'Product deleted from cart');
+        return redirect()->back()->with('warning', 'Product deleted from cart');
     }
 
 
     public function checkout()
     {
+
+        $user = User::find(auth()->user()->id);
+        $subTotal = 0;
+        $offerTotal = 0;
+        $carts = session()->get('cart');
+        if ($carts) {
+            foreach ($carts as $cart){
+                $subTotal += $cart['regular_price'] * $cart['product_quantity'];
+                $offerTotal += $cart['product_offer'];
+            }
+        }
+        if(!$carts){
+            return redirect()->back()->with('warning', 'No product into the cart');
+        }
+        return view('website.layouts.checkout',compact('user','subTotal','offerTotal'));
+    }
+    public function orderPlace(Request $request)
+    {
+        // order insert
+        $orderId = Order::create([
+            'customer_id' => auth()->user()->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'total' => $request->totalAmount,
+            'order_code' => rand(1000,900000),
+            'pay_type' => $request->payType,
+        ])->id;
+
+        // order details 
         $carts = session()->get('cart');
         if ($carts) {
             foreach ($carts as $cart)
-                Order::create([
-                    'customer_id' => auth()->user()->id,
-                    'name' => auth()->user()->name,
-                    'email' => auth()->user()->email,
-                    'phone' => auth()->user()->phone,
+            orderDetails::create([
+                    'order_id' => $orderId,
                     'product_id' => $cart['product_id'],
                     'product_name' => $cart['product_name'],
                     'model' => $cart['product_model'],
                     'price' => $cart['regular_price'],
                     'offer' => $cart['product_offer'],
                     'quantity' => $cart['product_quantity'],
-                    'total' => ($cart['regular_price'] * $cart['product_quantity']) - ($cart['regular_price'] * $cart['product_quantity'] * ($cart['product_offer'] / 100)),
+                    'total' => ($cart['regular_price'] * $cart['product_quantity']) - ($cart['product_offer'] * $cart['product_quantity']),
                 ]);
             session()->forget('cart');
-            return redirect()->back()->with('message', 'Order place successfully. Now Click -- PROCESS TO PAY -- to confirm order');
+            return redirect()->route('user.view.my.cart')->with('message', 'Order place successfully.');
         }
         return redirect()->back()->with('error', 'No data found into the cart');
     }
@@ -169,7 +167,7 @@ class CartController extends Controller
                 return redirect()->back()->with('message', 'Product added into the cart');
             }
             // case-3: same product adding into the cart
-            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + 1;
+            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + $request->quantity;
             session()->put('cart', $cartExist);
             return redirect()->back()->with('message', 'Product added into the cart');
         }

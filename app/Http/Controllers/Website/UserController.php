@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\orderDetails;
 use App\Models\User;
 use Illuminate\Http\Request;
 use PDF;
@@ -102,12 +103,37 @@ class UserController extends Controller
 
     public function orderList($id)
     {
-        $orders = Order::where('customer_id','=',$id)->get();
+        $orders = Order::where('customer_id','=',$id)->where('order_status', '=', 'accepted')->get();
         return view('website.layouts.order_list',compact('orders'));
+    }
+    public function orderDetail($id)
+    {
+        $order = Order::find($id);
+        $orderDetails = orderDetails::where('order_id','=',$id)->get();
+        return view('website.layouts.order_view',compact('order','orderDetails'));
     }
     public function myCart()
     {
         $carts = session()->get('cart');
         return view('website.layouts.my_cart',compact('carts'));
+    }
+
+    // change password
+    public function reset()
+    {
+        return view('website.pages.reset');
+    }
+    // update password
+    public function update_password(Request $request)
+    {
+        if ($request->password !== $request->con_password) {
+            return redirect()->back()->with('error', 'Incorrect current password');
+        } else {
+            // Passwords match and meet the validation criteria, so you can update the password here.
+            $user = User::find(auth()->user()->id);
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return redirect()->route('user.profile',auth()->user()->id)->with('message', 'Password changed successful');
+        }
     }
 }

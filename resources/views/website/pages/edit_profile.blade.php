@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>User Registration Form</title>
+    <title>Edit Profile</title>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="number" name="phone" value="{{ $user->phone }}" class="form-control" id="phone">
+                <input type="number" name="phone" value="{{ $user->phone }}" class="form-control" id="phone" required>
             </div>
             <button type="submit" class="btn btn-info w-100 text-uppercase">Save Changes</button>
         </form>

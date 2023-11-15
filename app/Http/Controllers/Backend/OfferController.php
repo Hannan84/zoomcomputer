@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Offer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class OfferController extends Controller
 {
@@ -35,7 +36,8 @@ class OfferController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = date('ymdhms') . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/uploads/offer/'), $filename);
+            Image::make($file->getRealPath())->resize(640, 640)->save(public_path('/uploads/offer') .'/'. $filename);
+            // $file->move(public_path('/uploads/offer/'), $filename);
         }
         Offer::create([
             'deadline' => $request->deadline,
@@ -61,7 +63,8 @@ class OfferController extends Controller
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $filename = date('Ymdmhs') . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/uploads/offer'), $filename);
+            Image::make($file->getRealPath())->resize(640, 640)->save(public_path('/uploads/offer') .'/'. $filename);
+            // $file->move(public_path('/uploads/offer'), $filename);
         }
         $offer->update([
             'image' => $filename,

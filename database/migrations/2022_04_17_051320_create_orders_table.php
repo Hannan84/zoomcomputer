@@ -15,21 +15,21 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_id');
+            $table->unsignedBigInteger('customer_id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
+            $table->string('address');
             $table->string('phone');
 
-            $table->string('product_id');
-            $table->string('product_name');
-            $table->string('model');
-            $table->string('price');
-            $table->string('offer');
-            $table->string('quantity');
             $table->string('total');
+            $table->string('order_code')->nullable();
+            $table->string('pay_type')->default('Hand Cash');
             $table->string('order_status')->default('pending');
             $table->string('payment_status')->default('pending');
-
+            $table->foreign('customer_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

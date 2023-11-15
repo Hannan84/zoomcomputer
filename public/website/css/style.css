@@ -3,7 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+html, body {
+  height: 100%;
+  margin: 0;
+}
+#page-container {
+  min-height: 100%;
+}
 /*********************** Navbar ***********************/
 .navbar {
   background: #0c0d0d;
@@ -14,8 +20,8 @@
 }
 
 .navbar img {
-  border-radius: 50%;
-  width: 36px;
+  border-radius: 5%;
+  width: 40%;
   height: 36px;
   margin-right: 10px;
 }
@@ -321,7 +327,7 @@
 
 /*********************** category ***********************/
 .header{
-  background:#000;
+  background-color: black;
 }
 .featured-Category {
   /* border-top: 1px solid rgb(182, 182, 182); */
@@ -984,6 +990,7 @@
 .social-links a:hover {
   color: #23499c;
 }
+
 /***** FOR MOBILE DESIGN *****/
 @media (max-width: 768px){
   .main-footer {
@@ -1032,7 +1039,8 @@
     text-align: center;
   }
 }
-  /* The grid: Four equal columns that floats next to each other */
+
+/* The grid: Four equal columns that floats next to each other */
   .column_img {
     float: left;
     width: 25%;

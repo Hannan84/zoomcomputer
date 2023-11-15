@@ -41,21 +41,16 @@
                                     <li data-target="#carouselExampleIndicators" data-slide-to="{{ $key }}"></li>
                                 @endforeach
                             </ol>
+                        
+
                             <div class="carousel-inner">
                                 @foreach ($offers_image as $offer)
-                                    @if ($loop->first)
-                                        <div class="carousel-item active">
-                                            <img class="d-block w-100" style="height:500px" src="{{ asset('/uploads/offer/' . $offer) }}"
-                                                alt="First slide">
-                                        </div>
-                                    @else
-                                        <div class="carousel-item">
-                                            <img class="d-block w-100" style="height:500px" src="{{ asset('/uploads/offer/' . $offer) }}"
-                                                alt="First slide">
-                                        </div>
-                                    @endif
+                                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                        <img class="d-block w-100" style="height:500px" src="{{ asset('/uploads/offer/' . $offer) }}" alt="Slide" style="height: 520px;">
+                                    </div>
                                 @endforeach
                             </div>
+                            
                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -66,21 +61,7 @@
                             </a>
                         </div>
                     </div>
-                    <!-- compare product -->
-                    <!-- <div class="col-lg-4 mt-4">
-                        <div class="compare-product text-center">
-                            <h3 class="pt-1">Compare Product</h3>
-                            <p>Choose two product to compare</p>
-                            <form action="" class="form-inline my-2 my-lg-0">
-                                <input type="search" name="search_c1" value="" placeholder="Search"
-                                    class="form-control m-2 w-100" aria-label="Search">
-                                <input type="search" name="search_c2" value="" placeholder="Search"
-                                    class="form-control m-2 w-100" aria-label="Search">
-                                <br>
-                                <input type="submit" class="bg-secondary p-2 border text-white w-100">
-                            </form>
-                        </div>
-                    </div> -->
+            
                 </div>
             </div>
         </div>
@@ -90,8 +71,8 @@
         <div class="container">
             <!-- notice -->
             <div class="text_animation">
-                <p id="pot"><?php echo date("jS F l")?>, our all branches are open except Suvastu Arcade Branch.
-                    Additionally our online activities will remain open and operational.
+                <p id="pot"><?php echo date('jS F l'); ?>, Wellcome to {{ config('app.name') }}.
+                Head Office: Shah Ali Plaza, 5th Floor, Shop No: 49, 80/A Mirpur 10, Dhaka 1216
                 </p>
             </div>
             <div class="categoryHeader">
@@ -130,10 +111,11 @@
                         <div class="card">
                             <a href="{{ route('website.product.details', $product->id) }}" style="color:black;">
                                 <div class="card-body font-weight-bold">
-                                    <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}" alt=""
+                                    <img style="height: 192px; width: 242px"
+                                        src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}" alt=""
                                         class="img-fluid"><br><br>
                                     <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                        {{ $product->model }}</p>
+                                        {{ $product->product_name }}</p>
                                     <p style="color:#d11d1d">
                                         {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                     </p>
@@ -144,12 +126,13 @@
                     </div>
                 @endforeach
             </div>
-            <div class="text-center mb-4 mt-4"><a href="{{ route('website.all.product') }}" class="view_all_product_button btn">View All Product</a>
+            <div class="text-center mb-4 mt-4"><a href="{{ route('website.all.product') }}"
+                    class="view_all_product_button btn">View All Product</a>
             </div>
         </div>
     </section>
     <!-- Description -->
-    <section class="company-descripiton border">
+    <!-- <section class="company-descripiton border">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 font-weight-bold mt-4">
@@ -174,7 +157,7 @@
                         <article>
                             BGD Online Limited expertise in web development. We do outsourcing web design and provide
                             hosting services.We developcompany website , ecommerce solution, Content rich CMS web
-                            application for the business needs.You find all service in here
+                            application for the business needs.You find all service in here.
                         </article>
                     </div>
                 </div>
@@ -184,8 +167,9 @@
                     <div class="description">
                         <article>
                             Internet access is the process that enables individuals and organisations to connect to the
-                            Internet using computer terminals, computers, mobile devices, sometimes via computer networks.
-                            Once connected to the Internet, users can access Internet services, such as email. </article>
+                            Internet using computer terminals, comters, mobile devices, sometimes via computer networks.
+                            Once connected to the Internet,  users can access Internet services, such as email.
+                        </article>
                     </div>
                 </div>
                 <div class="col-lg-12 p-2 mt-4">
@@ -194,12 +178,13 @@
                     <div class="description">
                         <article>
                             We provide Bangladeshi .bd or .bangla and the all the popular domain registration services. Our
-                            server uptime 99.99% compared to others. We ensure high server uptime with superb support.You
-                            find all service in here
+                            server uptime 99.99% compared top others. We ensure high server uptime with superb support. You
+                            find all service in here.
+                        </article>
                     </div>
                 </div>
             </div>
         </div>
         <br><br><br><br>
-    </section>
+    </section> -->
 @endsection

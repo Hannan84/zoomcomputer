@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
             <label for="o1">Offer Price</label>
-            <input type="number" name="product_offer" class="form-control" id="o1" required>
+            <input type="number" name="product_offer" class="form-control" id="o1" value="0" required>
         </div>
         <div class="form-group">
             <label for="pd1">Product Description</label>

@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 class StockController extends Controller
 {
     public function manageStock(){
-        $stock=Stock::with('product')->orderBy('id','desc')->get();
+        $stock=Stock::all();
         return view('admin.layouts.stock.stock_table',compact('stock'));
     }
     public function add(){
-        $stock=Product::with('stock')->get();
+        $stock=Product::all();
         return view('admin.layouts.stock.add_stock', compact('stock'));
     }
     public function store(Request $request){

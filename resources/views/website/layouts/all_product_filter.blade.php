@@ -20,7 +20,7 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     </div>
-                    <h4 class="m-2">Laptop</h4>
+                    <h4 class="m-2">Desktop</h4>
                 </div>
                 <div class="col-12 col-lg-4">
                     <h4 class="total_result">Total product found: {{ $result }}</h4>
@@ -190,11 +190,11 @@
                 <div class="container">
                     <div class="row">
                         @foreach ($products as $product)
-                            <div class="column d-flex align-items-stretch justify-content-center">
+                            <div class="column d-flex align-items-stretch">
                                 <div class="box">
                                     <a href="{{ route('website.product.details', $product->id) }}">
                                         <div class="box_image">
-                                            <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}">
+                                        <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}">
                                         </div>
                                     </a>
                                     <div class="detail-box">

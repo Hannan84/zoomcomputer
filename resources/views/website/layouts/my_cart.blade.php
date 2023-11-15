@@ -28,14 +28,14 @@
                                 @foreach ($carts as $key => $cart)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            {{ $cart['product_name'] }}
-                                        </td>
+                                        <td style="word-wrap: break-word;" width="200">{{ $cart['product_name'] }}</td>
                                         <td>{{ $cart['regular_price'] }} tk</td>
                                         <td>{{ $cart['product_offer'] }} tk</td>
                                         <td>{{ $cart['product_quantity'] }}</td>
+                                        <!-- <td><input type="number" min="1" name="quantity" class="form-control w-50" style="display:inline-block;"
+                                            value="{{ $cart['product_quantity'] }}"></td> -->
                                         <td>
-                                            {{ ($cart['regular_price'] - $cart['product_offer']) * $cart['product_quantity'] }} tk
+                                            {{ ($cart['regular_price'] * $cart['product_quantity']) -  $cart['product_offer']}} tk
                                         </td>
                                         <td>
                                             <a href="{{ route('user.remove.cart', $key) }}" class="btn btn-light">

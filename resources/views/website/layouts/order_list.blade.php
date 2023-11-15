@@ -1,68 +1,38 @@
 @extends('website.master')
 @section('contents')
     @if ($orders)
-        {
+    <br>
         <div class="container">
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-12">
                     <div class="text-capitalize">
-                        <table class="table table-hover table-responsive text-center">
+                        <table class="table table-hover table-responsive-sm text-center">
                             <thead class="border">
                                 <tr>
                                     <th>SL</th>
-                                    <th>name</th>
-                                    <th>email</th>
-                                    <th>phone</th>
-
-                                    <th>product_name</th>
-                                    <th>price</th>
-                                    <th>offer</th>
-                                    <th>quantity</th>
+                                    <th>OrderId</th>
+                                    <th>Order Date</th>
                                     <th>total</th>
-                                    <th>order_status</th>
-                                    <th>payment_status</th>
-                                    <th>action</th>
-
+                                    <th>Order Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 @foreach ($orders as $order)
-                                    <tr>
+                                    <tr class="table-light">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $order['name'] }}</td>
-                                        <td>{{ $order['email'] }}</td>
-                                        <td>{{ $order['phone'] }}</td>
-
-                                        <td>{{ $order['product_name'] }}</td>
-                                        <td> {{ $order['price'] }} tk</td>
-                                        <td>{{ $order['offer'] }}</td>
-                                        <td>{{ $order['quantity'] }}</td>
-                                        <td>{{ $order['total'] }}</td>
+                                        <td style="color:red">{{ $order['order_code'] }}</td>
+                                        <td>{{ date_format($order['created_at'],"Y-m-d") }}</td>
+                                        <td>{{ $order['total'] }} Tk</td>
                                         <td>
-                                            @if($order->order_status == 'canceled')
-                                            <span style="color:red">{{ $order->order_status }}</span>
-                                            @elseif($order->order_status == 'accepted')
                                             <span style="color:green">{{ $order->order_status }}</span>
-                                            @else
-                                            <span>{{ $order->order_status }}</span>
-                                            @endif
                                         </td>
                                         <td>
-                                            @if($order->payment_status == 'canceled')
-                                            <span style="color:red">{{ $order->payment_status }}</span>
-                                            @elseif($order->payment_status == 'accepted')
-                                            <span style="color:green">{{ $order->payment_status }}</span>
-                                            @else
-                                            <span>{{ $order->payment_status }}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-light">
-                                                <i class="fa fa-times"></i>
+                                            <a title="view" class="btn btn-light" href="{{ route('view.detail.list',$order->id) }}"> 
+                                                <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -71,11 +41,10 @@
                 </div>
             </div>
         </div>
-        }
-    @else{
+    @else
         <div class="text-center bg-warning p-3 rounded font-weight-bold">
             No Orders into the order !
         </div>
-        }
+        
     @endif
 @endsection

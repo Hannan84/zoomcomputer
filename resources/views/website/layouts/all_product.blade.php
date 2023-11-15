@@ -19,7 +19,7 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     </div>
-                    <h4 class="m-2">Laptop</h4>
+                    <h4 class="m-2">All Products</h4>
                 </div>
                 <div class="col-lg-4 col-s-6">
                     {{-- shorting --}}
@@ -195,7 +195,7 @@
                                     </a>
                                     <div class="detail-box">
                                         <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                            {{ $product->model }}
+                                            {{ $product->product_name }}
                                         </h5>
                                         <li>
                                             Processor: {{ $product->processor }}

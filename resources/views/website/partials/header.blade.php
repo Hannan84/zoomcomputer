@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-dark navbar-default navbar-expand-xl">
             <a href="{{ route('website.home') }}" class="navbar-brand"><img src="{{ asset('website/images/bgdlogo.jpg') }}"
-                    alt="logo">Used Laptop</a>
+                    alt="logo">{{ config('app.name') }}</a>
             {{-- mobile icon --}}
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -40,24 +40,24 @@
                 {{-- menu --}}
                 <div class="nav-2">
                     <ul>
-                        <li style="--clr:#00ade1;">
+                        <li style="--clr:#ffeaa7;">
                             <a href="{{ route('website.home') }}" data-text="home">home</a>
                         </li>
                         <li style="--clr:#ffeaa7;">
                             <a href="{{ route('website.offers') }}" data-text="offers">offers</a>
                         </li>
-                        <li style="--clr:#fd79a8;">
+                        <li style="--clr:#ffeaa7;">
                             <a href="{{ route('website.laptop.deals') }}" data-text="deals">deals</a>
                         </li>
                         @if (auth()->user())
-                            <li style="--clr:#fab1a0;">
+                            <li style="--clr:#ffeaa7;">
                                 <a href="{{ route('user.profile', auth()->user()->id) }}" data-text="profile">profile <span
                                         class="badge badge-danger">
                                         {{ session()->has('cart') ? count(session()->get('cart')) : 0 }}
                                     </span></a>
                             </li>
                         @else
-                            <li style="--clr:#f1c40f;">
+                            <li style="--clr:#ffeaa7;">
                                 <a href="{{ route('users.login.form') }}" data-text="login">Login</a>
                             </li>
                         @endif

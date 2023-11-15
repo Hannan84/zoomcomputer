@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Used Laptop BD </title>
+    <title>{{ config('app.name') }}</title>
+    <link rel="icon" type="image/jpg" href="{{ asset('website/images/bgdlogo.jpg') }}"/>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
@@ -70,11 +71,11 @@
                         </a>
                         <!-- website footer -->
                         <div class="sb-sidenav-menu-heading">footer</div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('user.refund.policy') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
                             Refund Policy
                         </a>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('user.terms.&.conditions') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                             Terms and Condition
                         </a>
@@ -82,7 +83,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Used Laptop Bd
+                    {{ config('app.name') }}
                 </div>
             </nav>
         </div>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('website/css/profile.css') }}">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>user profile</title>
+    <title>Profile</title>
 </head>
 
 <body class="">
@@ -82,12 +82,12 @@
                     </div>
                     <div class="col-lg-3 mt-2">
                         <div class="profile_card">
-                            <a href="#">
+                            <a href="{{ route('user.change-password') }}">
                                 <div class="profile_card_img">
                                     <i class="fa fa-key" aria-hidden="true"></i>
                                 </div>
                                 <div class="profile_card_details">
-                                    <p>Forget Password</p>
+                                    <p>Change Password</p>
                                 </div>
                             </a>
                         </div>

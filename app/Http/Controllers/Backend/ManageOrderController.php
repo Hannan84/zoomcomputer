@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\orderDetails;
 use App\Models\Stock;
 use App\Notifications\OrderCancelNotification;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class ManageOrderController extends Controller
     public function manageOrder()
     {
         $orders = Order::all()->sortByDesc('created_at')->values();
-        return view('admin.layouts.order.order_table', compact('orders'));
+        $orderDetails = orderDetails::all();
+        return view('admin.layouts.order.order_table', compact('orders','orderDetails'));
     }
     public function acceptOrder($id)
     {
