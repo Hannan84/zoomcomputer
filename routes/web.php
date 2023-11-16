@@ -149,9 +149,10 @@ Route::group(['prefix' => 'admin'], function () {
         /////////////////////////// Table part ///////////////////////////
         // Order List
         Route::get('/manage/order', [ManageOrderController::class, 'manageOrder'])->name('admin.manage.order');
-        Route::get('/accept/order/{id}', [ManageOrderController::class, 'acceptOrder'])->name('admin.accept.order');
+        Route::get('/order/edit/{id}', [ManageOrderController::class, 'orderEdit'])->name('admin.edit.order');
+        Route::post('/order/update/{id}', [ManageOrderController::class, 'orderUpdate'])->name('admin.update.order');
         Route::get('/update/stock/after/order/{id}', [ManageOrderController::class, 'updateStock'])->name('update.stock.after.order');
-        Route::get('/reject/order/{id}', [ManageOrderController::class, 'rejectOrder'])->name('admin.reject.order');
+        Route::get('/delete/order/{id}', [ManageOrderController::class, 'deleteOrder'])->name('admin.delete.order');
 
         // Customer List
         Route::get('/manage/customer', [CustomerController::class, 'manageCustomer'])->name('admin.manage.customer');

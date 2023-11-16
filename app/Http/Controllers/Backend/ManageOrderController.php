@@ -18,32 +18,45 @@ class ManageOrderController extends Controller
         $orderDetails = orderDetails::all();
         return view('admin.layouts.order.order_table', compact('orders','orderDetails'));
     }
-    public function acceptOrder($id)
+    public function orderEdit($id)
+    {
+        $order = Order::find($id);
+        return view('admin.layouts.order.order_edit',compact('order'));
+    }
+    public function orderUpdate(Request $request,$id)
     {
         $order = Order::find($id);
         $order->update([
-            'order_status' => 'accepted',
+            'order_status' => $request->orderStatus,
+            'payment_status' => $request->paymentStatus,
         ]);
-        return redirect()->route('update.stock.after.order',$order->id);
+        if($request->orderStatus == "accepted"){
+            return redirect()->route('update.stock.after.order',$order->id);
+        }else{
+            toastr()->success("Order '$request->orderStatus' and Payment '$request->paymentStatus'");
+            return redirect()->route('admin.manage.order');
+        }
     }
     public function updateStock($id)
     {
-        $order = Order::find($id);
-        $stock = Stock::where('product_id', $order->product_id)->get();
-        foreach ($stock as $st_qty) {
-            $st_qty->update([
-                'total_produce' => $st_qty->total_produce - $order->quantity,
-            ]);
+        $orderDetails = orderDetails::where('order_id',$id)->get();
+        foreach ($orderDetails as $detail){
+            $stock = Stock::where('product_id', $detail->product_id)->get();
+            foreach ($stock as $st_qty) {
+                $st_qty->update([
+                    'total_produce' => $st_qty->total_produce - $detail->quantity,
+                ]);
+            }
         }
-        return redirect()->back()->with('message', 'Order accepted and Stock Updated');
+        toastr()->success('Order accepted and Stock Updated');
+        return redirect()->route('admin.manage.order');
     }
-    public function rejectOrder($id)
+    public function deleteOrder($id)
     {
         $order = Order::find($id);
         // Notification::send($order, new OrderCancelNotification($order->model, $order->product_name, $order->price, $order->quantity));
-        $order->update([
-            'order_status' => 'canceled',
-        ]);
-        return redirect()->route('admin.manage.order')->with('error', 'Order Canceled');
+        $order->delete();
+        toastr()->warning('warning', 'Order Delete');
+        return redirect()->route('admin.manage.order');
     }
 }

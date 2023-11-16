@@ -40,6 +40,8 @@
                     <span style="color:red">{{ $order->order_status }}</span>
                     @elseif($order->order_status == 'accepted')
                     <span style="color:green">{{ $order->order_status }}</span>
+                    @elseif($order->order_status == 'delivered')
+                    <span style="color:green">{{ $order->order_status }}</span>
                     @else
                     <span>{{ $order->order_status }}</span>
                     @endif
@@ -85,14 +87,8 @@
                     </table>
                 </td>
                 <td>
-                    @if($order->order_status == 'pending')
-                    <a href="{{ route('admin.accept.order',$order->id) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
-                    <a href="{{ route('admin.reject.order',$order->id) }}" class="btn btn-danger mt-1"><i class="fa fa-times"></i></a>
-                    @elseif($order->order_status == 'canceled')
-                    <a href="{{ route('admin.accept.order',$order->id) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
-                    @elseif($order->order_status == 'accepted')
-                    <!-- <a href="{{ route('admin.reject.order',$order->id) }}" class="btn btn-danger mt-1"><i class="fa fa-times"></i></a> -->
-                    @endif
+                <a href="{{ route('admin.edit.order',$order->id) }}" class="btn btn-success" title="update"><i class="fa fa-wrench"></i></a>
+                <a href="{{ route('admin.delete.order',$order->id) }}" class="btn btn-danger mt-1" title="delete" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

@@ -16,8 +16,8 @@
         <thead class="table-primary">
             <tr class="text-center">
                 <th scope="col">SL</th>
-                <th scope="col">product_id</th>
-                <th scope="col">Total Produce</th>
+                <th scope="col">product_model</th>
+                <th scope="col">Total Product</th>
                 <!-- <th scope="col">Available Stock</th> -->
                 <th scope="col">Action</th>
             </tr>
