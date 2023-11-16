@@ -103,7 +103,7 @@ class UserController extends Controller
 
     public function orderList($id)
     {
-        $orders = Order::where('customer_id','=',$id)->where('order_status', '=', 'accepted')->get();
+        $orders = Order::where('customer_id','=',$id)->where('order_status', '=', 'accepted')->orwhere('order_status', '=', 'delivered')->get();
         return view('website.layouts.order_list',compact('orders'));
     }
     public function orderDetail($id)
