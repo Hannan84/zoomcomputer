@@ -209,7 +209,7 @@
                                         <h6 style="text-align:center; color:#d11d1d">
                                             {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                         </h6>
-                                        <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-secondary">
+                                        <a href="" class="add_to_cart btn btn-secondary">
                                             Add To Cart
                                         </a>
                                     </div>
@@ -225,4 +225,21 @@
         </div>
         <br><br>
     </section>
+    <script>
+        $('.add_to_cart').on('click', function(e){
+            e.preventDefault();
+            var qty = $('#quantity').val();
+            
+            $.ajax({
+                url: '{{ route('add.to.cart', $product->id) }}',
+                method: 'GET',
+                data: {
+                    quantity : 1
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
 @endsection
