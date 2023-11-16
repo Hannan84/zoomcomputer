@@ -26,7 +26,7 @@
 <section class="manage_table">
     <div id="divToPrint">
         <div class="report_header p-2">
-            <h2 class="text-center">Best Laptop Gallery</h2>
+            <h2 class="text-center">{{ config('app.name') }}</h2>
         </div>
         <table class="table table-borderless table-hover">
             <thead class="table-primary text-capitalize">
