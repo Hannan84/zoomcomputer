@@ -11,7 +11,7 @@
             <div class="col-xl-4 col-md-6 mt-4">
                 <div class="text-white mb-4" style="background-color: #82589F;">
                     <div class="card-body">
-                        <h5>Total Product</h5>
+                        <h5>Product</h5>
                     </div>
                     <div class="card-footer">
                         <p>{{ $total_product }}</p>
@@ -22,7 +22,7 @@
             <div class="col-xl-4 col-md-6 mt-4">
                 <div class="card text-white mb-4" style="background-color: #1abc9c;">
                     <div class="card-body">
-                        <h5>Total Order(pending)</h5>
+                        <h5>Order(pending)</h5>
                     </div>
                     <div class="card-footer">
                         <p>{{ $total_order }}</p>
@@ -31,9 +31,20 @@
             </div>
             <!-- cart-3 -->
             <div class="col-xl-4 col-md-6 mt-4">
+                <div class="card text-white mb-4" style="background-color: #82589F;">
+                    <div class="card-body">
+                        <h5>Order(delivered)</h5>
+                    </div>
+                    <div class="card-footer">
+                        <p>{{ $order_delivered }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- cart-4 -->
+            <div class="col-xl-4 col-md-6 mt-2">
                 <div class="card bg-success text-white mb-4">
                     <div class="card-body">
-                        <h5>Total Customer</h5>
+                        <h5>Customer</h5>
                     </div>
                     <div class="card-footer">
                         <p>{{ $total_customer }}</p>
@@ -42,26 +53,26 @@
             </div>
             <!-- row-2 -->
             <div class="col-xl-4 col-md-6 mt-2">
-                <div class="card bg-success text-white mb-4">
+                <div class="card text-white mb-4" style="background-color: #82589F;">
                     <div class="card-body">
                         <h5>Total Revenue</h5>
                     </div>
                     <div class="card-footer">
-                        <p>{{ $total_revenue }}</p>
+                        <p>{{ $total_revenue }} Tk</p>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-md-6 mt-2">
-                <div class="text-white mb-4" style="background-color: #82589F;">
+                <div class="text-white bg-success mb-4">
                     <div class="card-body">
-                        <h5>Total</h5>
+                        <h5>Today Revenue</h5>
                     </div>
                     <div class="card-footer">
-                        <p>0</p>
+                        <p>{{ $today_revenue }} Tk</p>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 mt-2">
+            <!-- <div class="col-xl-4 col-md-6 mt-2">
                 <div class="card text-white mb-4" style="background-color: #1abc9c;">
                     <div class="card-body">
                         <h5>Total</h5>
@@ -70,7 +81,7 @@
                         <p>0</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- row-3 -->
         </div>
     </div>

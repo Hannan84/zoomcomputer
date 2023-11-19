@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
 
             $table->string('total');
             $table->string('order_code')->nullable();
-            $table->string('pay_type')->default('Hand Cash');
+            $table->string('pay_type')->default('Cash');
             $table->string('order_status')->default('pending');
             $table->string('payment_status')->default('pending');
             $table->foreign('customer_id')

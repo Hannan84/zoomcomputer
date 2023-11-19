@@ -48,8 +48,8 @@
                             </div>
                             <div class="col">
                                 <div class="form-check">
-                                <label class="form-check-label" for="handCash">Hand Cash</label>
-                                <input class="" type="radio" name="payType" id="handCash" value="Hand Cash" checked>
+                                <label class="form-check-label" for="handCash">Cash</label>
+                                <input class="" type="radio" name="payType" id="handCash" value="Cash" checked>
                                 <input class="" type="hidden" name="totalAmount" id="totalAmount" value="{{ ($subTotal + 80) - $offerTotal }}">
                                 </div>
                             </div>

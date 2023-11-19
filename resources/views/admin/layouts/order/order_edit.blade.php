@@ -9,7 +9,9 @@
                 <select class="form-control" name="orderStatus" id="orderStatus">
                     <option {{ $order->order_status=="pending"? 'selected':'' }} value="pending">pending</option>
                     <option {{ $order->order_status=="accepted"? 'selected':'' }} value="accepted">accepted</option>
+                    @if ($order->order_status=="accepted")
                     <option {{ $order->order_status=="delivered"? 'selected':'' }} value="delivered">delivered</option>
+                    @endif
                     <option {{ $order->order_status=="canceled"? 'selected':'' }} value="canceled">canceled</option>
                 </select>
             </div>

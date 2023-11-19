@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class DashBoardController extends Controller
 {
@@ -15,7 +16,9 @@ class DashBoardController extends Controller
         $total_product = Product::all()->count();
         $total_customer = User::where('role','user')->count();
         $total_order = Order::where('order_status','pending')->count();
-        $total_revenue = Payment::where('amount')->sum('amount');
-        return view('admin.layouts.dashboard',compact('total_product','total_customer','total_order','total_revenue'));
+        $order_delivered = Order::where('order_status','delivered')->count();
+        $total_revenue = Order::where('payment_status','accepted')->sum('total');
+        $today_revenue = Order::whereDate('created_at',Carbon::today())->sum('total');
+        return view('admin.layouts.dashboard',compact('total_product','total_customer','total_order','order_delivered','total_revenue','today_revenue'));
     }
 }
