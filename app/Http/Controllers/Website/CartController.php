@@ -15,6 +15,8 @@ class CartController extends Controller
     public function cart(Request $request,$id)
     {
         $product = Product::find($id);
+        $stock = Stock::where('product_id',$product->id)->get();
+
         if (!$product) {
             return redirect()->route('website.home')->with('error', 'there is no product into the cart');
         }
@@ -61,6 +63,17 @@ class CartController extends Controller
         return redirect()->route('website.home')->with('warning', 'Cart Cleared');
     }
 
+    public function update(Request $request)
+    {
+        $product = Product::find($request->id);
+
+        if ($request->id && $request->quantity) {
+            $cart = session()->get('cart');
+            $cart[$request->id]["product_quantity"] = $request->quantity;
+            $cart[$request->id]["product_offer"] = ($product->product_offer * $request->quantity);
+            session()->put('cart', $cart);
+        }
+    }
     public function remove($id)
     {
         $cart = session()->get('cart');
@@ -123,53 +136,53 @@ class CartController extends Controller
     }
 
 
-    public function orderForm(Request $request, $id)
-    {
-        $product = Product::find($id);
-        $stock = Stock::where('product_id',$product->id)->get();
+    // public function orderForm(Request $request, $id)
+    // {
+    //     $product = Product::find($id);
+    //     $stock = Stock::where('product_id',$product->id)->get();
 
 
-//        foreach($stock as $st_qty){
-//            $st_qty->total_produce;
-//        }
-        if (empty($stock[0])) {
-            return redirect()->back()->with('error', 'Out of stock');
-        }
-        else if ($stock[0]->total_produce < $request->quantity) {
-            return redirect()->back()->with('error', 'Out of stock');
-        }
-        else{
-            $cartExist = session()->get('cart');
-            // case-1:no cart
-            if (!$cartExist) {
-                $cartData = [$id => [
-                    'product_id' => $product->id,
-                    'product_model' => $product->model,
-                    'product_name' => $product->product_name,
-                    'regular_price' => $product->regular_price,
-                    'product_offer' => $product->product_offer,
-                    'product_quantity' => $request->quantity,
-                ]];
-                session()->put('cart', $cartData);
-                return redirect()->back()->with('message', 'Product added into the cart');
-            }
-            // case-2:already one cart exist
-            if (!isset($cartExist[$id])) {
-                $cartExist[$id] = [
-                    'product_id' => $product->id,
-                    'product_model' => $product->model,
-                    'product_name' => $product->product_name,
-                    'regular_price' => $product->regular_price,
-                    'product_offer' => $product->product_offer,
-                    'product_quantity' => $request->quantity,
-                ];
-                session()->put('cart', $cartExist);
-                return redirect()->back()->with('message', 'Product added into the cart');
-            }
-            // case-3: same product adding into the cart
-            $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + $request->quantity;
-            session()->put('cart', $cartExist);
-            return redirect()->back()->with('message', 'Product added into the cart');
-        }
-    }
+    //    foreach($stock as $st_qty){
+    //        $st_qty->total_produce;
+    //    }
+    //     if (empty($st_qty)) {
+    //         return redirect()->back()->with('error', 'Out of stock');
+    //     }
+    //     else if ($st_qty->total_produce < $request->quantity) {
+    //         return redirect()->back()->with('error', 'Out of stock');
+    //     }
+    //     else{
+    //         $cartExist = session()->get('cart');
+    //         // case-1:no cart
+    //         if (!$cartExist) {
+    //             $cartData = [$id => [
+    //                 'product_id' => $product->id,
+    //                 'product_model' => $product->model,
+    //                 'product_name' => $product->product_name,
+    //                 'regular_price' => $product->regular_price,
+    //                 'product_offer' => $product->product_offer,
+    //                 'product_quantity' => $request->quantity,
+    //             ]];
+    //             session()->put('cart', $cartData);
+    //             return redirect()->back()->with('message', 'Product added into the cart');
+    //         }
+    //         // case-2:already one cart exist
+    //         if (!isset($cartExist[$id])) {
+    //             $cartExist[$id] = [
+    //                 'product_id' => $product->id,
+    //                 'product_model' => $product->model,
+    //                 'product_name' => $product->product_name,
+    //                 'regular_price' => $product->regular_price,
+    //                 'product_offer' => $product->product_offer,
+    //                 'product_quantity' => $request->quantity,
+    //             ];
+    //             session()->put('cart', $cartExist);
+    //             return redirect()->back()->with('message', 'Product added into the cart');
+    //         }
+    //         // case-3: same product adding into the cart
+    //         $cartExist[$id]['product_quantity'] = $cartExist[$id]['product_quantity'] + $request->quantity;
+    //         session()->put('cart', $cartExist);
+    //         return redirect()->back()->with('message', 'Product added into the cart');
+    //     }
+    // }
 }

@@ -25,20 +25,20 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($carts as $key => $cart)
-                                    <tr>
+                                @foreach ($carts as $id => $cart)
+                                    <tr data-id="{{ $id }}">
                                         <td>{{ $loop->iteration }}</td>
                                         <td style="word-wrap: break-word;" width="200">{{ $cart['product_name'] }}</td>
                                         <td>{{ $cart['regular_price'] }} tk</td>
                                         <td>{{ $cart['product_offer'] }} tk</td>
-                                        <td>{{ $cart['product_quantity'] }}</td>
-                                        <!-- <td><input type="number" min="1" name="quantity" class="form-control w-50" style="display:inline-block;"
-                                            value="{{ $cart['product_quantity'] }}"></td> -->
+                                        <!-- <td>{{ $cart['product_quantity'] }}</td> -->
+                                        <td><input type="number" min="1" name="quantity" maxlength="5" class="form-control w-50 quantity" style="display:inline-block;"
+                                            value="{{ $cart['product_quantity'] }}"></td>
                                         <td>
                                             {{ ($cart['regular_price'] * $cart['product_quantity']) -  $cart['product_offer']}} tk
                                         </td>
                                         <td>
-                                            <a href="{{ route('user.remove.cart', $key) }}" class="btn btn-light">
+                                            <a href="{{ route('user.remove.cart', $id) }}" class="btn btn-light">
                                                 <i class="fa fa-times"></i>
                                             </a>
                                         </td>
@@ -58,4 +58,24 @@
         @endif
     </div>
     <br><br><br><br><br><br>
+    <script>
+        $(".quantity").change("change paste keyup",function (e) {
+            e.preventDefault();
+
+            var ele = $(this);
+
+            $.ajax({
+                url: '{{ route('update.cart') }}',
+                method: "patch",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: ele.parents("tr").attr("data-id"),
+                    quantity: ele.parents("tr").find(".quantity").val(),
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+    </script>
 @endsection

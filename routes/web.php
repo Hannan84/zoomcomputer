@@ -78,10 +78,11 @@ Route::group(['prefix' => 'website'], function () {
         Route::get('/add/to/cart/{id}/{deal?}', [CartController::class, 'cart'])->name('add.to.cart');
         Route::get('/clear/cart', [CartController::class, 'clearCart'])->name('clear.cart');
         Route::get('/user/remove/cart/{id}', [CartController::class, 'remove'])->name('user.remove.cart');
+        Route::patch('/user/update/cart', [CartController::class, 'update'])->name('update.cart');
         Route::get('/user/checkout', [CartController::class, 'checkout'])->name('user.checkout');
         Route::post('/user/orderPlace', [CartController::class, 'orderPlace'])->name('user.placeOrder');
         // order form
-        Route::get('/order/form/{id}', [CartController::class, 'orderForm'])->name('website.order.form');
+        // Route::get('/order/form/{id}', [CartController::class, 'orderForm'])->name('website.order.form');
     });
 
     // footer

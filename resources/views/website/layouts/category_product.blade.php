@@ -26,6 +26,7 @@
                             <div class="detail-box">
                                 <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                     {{ $product->model }}
+                                    <input type="hidden" value="{{ $product->id }}" id="p_id">
                                 </h5>
                                 <li>
                                     Processor: {{ $product->processor }}
@@ -39,8 +40,8 @@
                                 <h6 style="text-align:center; color:#d11d1d">
                                     {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                 </h6>
-                                <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-secondary">
-                                    Add To Cart
+                                <a href="" class="add_to_cart btn btn-secondary">
+                                    Buy Now
                                 </a>
                             </div>
                         </div>
@@ -50,4 +51,23 @@
         </div>
         <br><br><br><br><br><br>
     </section>
+    <script>
+        $('.add_to_cart').on('click', function(e){
+            e.preventDefault();
+            var id = $('#p_id').val();
+            var url = '{{ route('add.to.cart', ':id') }}';
+            url = url.replace(':id',id);
+            
+            $.ajax({
+                url: url,
+                method: 'GET',
+                data: {
+                    quantity : 1
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
 @endsection

@@ -210,12 +210,9 @@
                                         <li>
                                             Display: {{ $product->display }}
                                         </li>
-                                        <h6 style="text-align:center; color:#d11d1d">
+                                        <h6 style="color:#d11d1d">
                                             {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                         </h6>
-                                        <a href="{{ route('website.product.details', $product->id) }}" class="btn btn-secondary">
-                                            Product Details
-                                        </a>
                                     </div>
                                 </div>
                             </div>

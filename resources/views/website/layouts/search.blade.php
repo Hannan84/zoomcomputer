@@ -18,13 +18,12 @@
             <div class="row">
                 @foreach ($products as $product)
                     <div class="column d-flex align-items-stretch justify-content-center">
+                        <a href="{{ route('website.product.details', $product->id) }}"  style=" :hover{ text-decoration : none}">
                         <div class="box">
-                            <a href="{{ route('website.product.details', $product->id) }}">
-                                <div class="img-box">
-                                    <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}"
-                                        class="img-fluid">
-                                </div>
-                            </a>
+                            <div class="img-box">
+                                <img src="{{ asset('uploads/products/' .explode('|',$product->product_image)[0]) }}"
+                                    class="img-fluid">
+                            </div>
                             <div class="detail-box">
                                 <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                     {{ $product->model }}
@@ -38,14 +37,12 @@
                                 <li>
                                     Display: {{ $product->display }}
                                 </li>
-                                <h6 style="text-align:center; color:#d11d1d">
+                                <h6 style="color:#d11d1d">
                                     {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                 </h6>
-                                <a href="{{ route('website.product.details', $product->id) }}" class="btn btn-secondary">
-                                    Product Details
-                                </a>
                             </div>
                         </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

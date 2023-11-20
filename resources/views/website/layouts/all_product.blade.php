@@ -210,7 +210,7 @@
                                             {{ number_format($product->regular_price) }}<span style="font-size:1.5rem">৳</span>
                                         </h6>
                                         <a href="" class="add_to_cart btn btn-secondary">
-                                            Add To Cart
+                                            Buy Now
                                         </a>
                                     </div>
                                 </div>

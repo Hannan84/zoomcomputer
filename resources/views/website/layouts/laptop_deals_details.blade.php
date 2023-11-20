@@ -56,23 +56,13 @@
                                 </div>
                                 <div class="col-lg-12 mt-3">
                                     <div class="row ">
-                                        <div class="col-lg-6 ">
-                                            <form action="{{ route('website.order.form', $product->id) }}" method="GET">
-                                                @csrf
-                                                <input type="number" min="1" name="quantity" id="quantity" class="form-control w-100"
-                                                    value="1">
-                                                <button type="submit" class="btn btn-success w-100 text-center mt-2">
-                                                    Buy Now
-                                                </button>
-                                            </form>
+                                        <div class="col-lg-6">
+                                            <input type="number" min="1" name="quantity" id="quantity" class="form-control w-100" value="1">
                                         </div>
-                                        <div class="col-lg-6 pb-2 mt-5 ">
+                                        <div class="col-lg-6">
                                             <a href="" class="add_to_cart btn btn-info w-100">
-                                                Add To Cart
+                                                Buy Now
                                             </a>
-                                            <!-- <a href="{{ route('add.to.cart', [$product->id,'deal']) }}" class="btn btn-info w-100">
-                                                Add To Cart
-                                            </a> -->
                                         </div>
                                     </div>
                                 </div>
